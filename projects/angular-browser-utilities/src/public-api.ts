@@ -4,3 +4,4 @@
 export * from './lib/browser-utilities.common';
 export * from './lib/window.service';
 export * from './lib/container-height.service';
+export * from './lib/angular-browser-utilities.module';
