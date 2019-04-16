@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular-browser-utilities": [
+        "dist/angular-browser-utilities"
+      ],
+      "angular-browser-utilities/*": [
+        "dist/angular-browser-utilities/*"
+      ]
+    }
   }
 }

@@ -39,7 +39,9 @@ speed-measure-plugin.json
 npm-debug.log
 yarn-error.log
 testem.log
+debug.log
 /typings
+/coverage
 
 # System Files
 .DS_Store
