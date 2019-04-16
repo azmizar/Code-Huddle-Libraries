@@ -1,24 +1,39 @@
-# AngularBrowserUtilities
+# Code-Huddle: Angular Browser Utilities
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+Provides library of re-usable classes and objects related to browser and HTML elements.
 
-## Code scaffolding
+## Services
 
-Run `ng generate component component-name --project angular-browser-utilities` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project angular-browser-utilities`.
-> Note: Don't forget to add `--project angular-browser-utilities` or else it will be added to the default project in your `angular.json` file. 
+All services are provided via `AngularBrowserUtilitiesModule` using [tree-shakable provider](https://angular.io/guide/dependency-injection-providers#tree-shakable-providers).
 
-## Build
+### WindowService
 
-Run `ng build angular-browser-utilities` to build the project. The build artifacts will be stored in the `dist/` directory.
+> Provides common `window` and `HTMLElement` utilities and events.
 
-## Publishing
+* Access to native `window` and `document` objects
+* Method to assign internal ID to HTMLElement (using `UUID`)
+* Method to get `window` viewport size
+* Methods to get `HTMLElement`(s) size
+* Observable for `window` resize event (debounce=250ms)
 
-After building your library with `ng build angular-browser-utilities`, go to the dist folder `cd dist/angular-browser-utilities` and run `npm publish`.
+### ContainerHeightService
 
-## Running unit tests
+> Provides utility to detect changes related to size (specifically for height) of a container and its contents.
 
-Run `ng test angular-browser-utilities` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* Creates containers (`window` or `HTMLElement`)
+* Adds/removes one or more `HTMLElement`(s) as contents of a container
+* Observable for container size change event (`.containerSizeEvent`)
+* Observable for container available size change event (`.availableSizeEvent`)
+* Observable for tallest content change event (`.tallestContentEvent`)
 
-## Further help
+## Components
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+N/A
+
+## Utility Classes
+
+N/A
+
+## Disclaimer
+
+> These utilities are used across Angular apps that I build for my own purposes (either something fun on the side or some work). I'm publishing it to public for anyone to look at and may be able to use or may be able to modify for their own use. I will include GIT issues where comments/bugs/issues can be logged in the future.

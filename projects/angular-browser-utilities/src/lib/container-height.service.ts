@@ -13,6 +13,7 @@ import { map, merge, filter } from 'rxjs/operators';
 /**
  * App imports
  */
+import { AngularBrowserUtilitiesModule } from './angular-browser-utilities.module';
 import { ISize, IContainer, IAvailableSize, IContentSize } from './browser-utilities.common';
 import { WindowService } from './window.service';
 
@@ -21,7 +22,7 @@ import { WindowService } from './window.service';
  * Provides change events related to height of container elements or browser viewport.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: AngularBrowserUtilitiesModule
 })
 export class ContainerHeightService {
   private _containerIDs: string[] = [];
@@ -31,7 +32,7 @@ export class ContainerHeightService {
   private _manualObs: Subject<'window' | 'interval' | 'manual'>;
   private _overallObs: Observable<'window' | 'interval' | 'manual'>;
 
-  readonly INTERVALISMS: number = 250;
+  readonly INTERVALINMS: number = 250;
 
   /**
    * Constructor
@@ -46,7 +47,7 @@ export class ContainerHeightService {
     );
 
     // interval
-    this._intervalObs = interval(this.INTERVALISMS).pipe(
+    this._intervalObs = interval(this.INTERVALINMS).pipe(
       map((): 'window' | 'interval' => {
         return 'interval';
       })
@@ -206,7 +207,7 @@ class Container implements IContainer {
           type: TriggerTypes.CONTAINERSIZE,
           result: {
             containerSize: this._lastContainerSize,
-            contentSizes: [],
+            contents: [],
             selectedContent: null,
             width: this._lastContainerSize.width,
             height: this._lastContainerSize.height

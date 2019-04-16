@@ -191,7 +191,7 @@ describe('AvailableHeightService', () => {
 
     setTimeout(() => {
       sub.unsubscribe();
-    }, service.INTERVALISMS + 10);
+    }, service.INTERVALINMS + 10);
   });
 
   /**
@@ -336,39 +336,13 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
-    });
-
-    /**
-     * Tallest content should not be triggered when no content in the group
-     */
-    it('should not trigger tallest content without any contents', (done) => {
-      service.addContainer();
-
-      const cont = service.getContainer('window');
-
-      // call count
-      let callCount = 0;
-
-      // subscribe to resize event
-      const sub = cont.tallestContentEvent.subscribe((availSize: IAvailableSize) => {
-        ++callCount;
-      });
-
-      // wait for a bit so that we can check if event was triggered
-      setTimeout(() => {
-        expect(callCount).toBe(0);
-
-        sub.unsubscribe();
-
-        done();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
     });
 
     /**
      * Returns available size
      */
-    it('should return available size', (done) => {
+    it('should return available size based on contents', (done) => {
       service.addContainer();
 
       const cont = service.getContainer('window');
@@ -396,7 +370,33 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
+    });
+
+    /**
+     * Tallest content should not be triggered when no content in the group
+     */
+    it('should not trigger tallest content without any contents', (done) => {
+      service.addContainer();
+
+      const cont = service.getContainer('window');
+
+      // call count
+      let callCount = 0;
+
+      // subscribe to resize event
+      const sub = cont.tallestContentEvent.subscribe((availSize: IAvailableSize) => {
+        ++callCount;
+      });
+
+      // wait for a bit so that we can check if event was triggered
+      setTimeout(() => {
+        expect(callCount).toBe(0);
+
+        sub.unsubscribe();
+
+        done();
+      }, service.INTERVALINMS + 10);
     });
 
     /**
@@ -424,7 +424,7 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
     });
 
     /**
@@ -464,8 +464,8 @@ describe('AvailableHeightService', () => {
           done();
 
           sub.unsubscribe();
-        }, service.INTERVALISMS + 10);
-      }, service.INTERVALISMS + 10);
+        }, service.INTERVALINMS + 10);
+      }, service.INTERVALINMS + 10);
     });
 
     /**
@@ -523,7 +523,7 @@ describe('AvailableHeightService', () => {
 
         sub1.unsubscribe();
         sub2.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
     });
   });
 
@@ -550,7 +550,7 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
     });
 
     /**
@@ -575,7 +575,7 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
     });
 
     /**
@@ -617,13 +617,13 @@ describe('AvailableHeightService', () => {
 
         sub1.unsubscribe();
         sub2.unsubscribe();
-      }, service.INTERVALISMS + 1);
+      }, service.INTERVALINMS + 1);
     });
 
     /**
      * Should return available size
      */
-    it('should return available size', (done) => {
+    it('should return available size base on contents', (done) => {
       // add container
       service.addContainer('testcontainer', elem1);
 
@@ -690,7 +690,7 @@ describe('AvailableHeightService', () => {
         expectedSize.height -= elem3.getBoundingClientRect().height;
 
         cont.addContent(elem3);
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
 
       // wait for service.INTERVALISMS * 2 - to verify there should be 2 calls
       setTimeout(() => {
@@ -698,7 +698,7 @@ describe('AvailableHeightService', () => {
         done();
 
         sub.unsubscribe();
-      }, service.INTERVALISMS * 2);
+      }, service.INTERVALINMS * 2);
     });
 
     /**
@@ -726,7 +726,50 @@ describe('AvailableHeightService', () => {
 
       setTimeout(() => {
         sub.unsubscribe();
-      }, service.INTERVALISMS + 10);
+      }, service.INTERVALINMS + 10);
+    });
+
+    /**
+     * Should trigger container size change event when width changed
+     */
+    it('should trigger container size change event when width of container changed', (done) => {
+      // default expected size
+      const expectedSize = getMockElementAvailableSize(elem1);
+
+      expectedSize.contents = [];
+      expectedSize.selectedContent = null;
+
+      // add container
+      service.addContainer('testcontainer', elem1);
+
+      // get it back
+      const cont = service.getContainer('testcontainer');
+      expect(cont).toBeTruthy();
+
+      // call count
+      let callCount: number = 0;
+
+      // subscribe
+      const sub = cont.containerSizeEvent.subscribe((availSize: IAvailableSize) => {
+        expect(availSize).toEqual(expectedSize);
+
+        ++callCount;
+      });
+
+      // wait for service.INTERVALISMS + 10 - change container width
+      setTimeout(() => {
+        elem1.offsetWidth *= 2;
+        expectedSize.width = elem1.offsetWidth;
+        expectedSize.containerSize.width = elem1.offsetWidth;
+      }, service.INTERVALINMS + 10);
+
+      // wait for service.INTERVALISMS * 2 - to verify there should be 2 calls
+      setTimeout(() => {
+        expect(callCount).toBe(2);
+        done();
+
+        sub.unsubscribe();
+      }, service.INTERVALINMS * 2);
     });
   });
 });

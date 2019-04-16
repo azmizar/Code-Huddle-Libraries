@@ -2,8 +2,33 @@
   "name": "@code-huddle/angular-browser-utilities",
   "version": "0.0.1-alpha",
   "description": "Angular browser utilities",
-  "author": "Azmizar Ujang",
-  "license": "GPL-3.0-or-later",  
+  "author": {
+    "name": "Azmizar Ujang",
+    "email": "azmizar@code-huddle.com",
+    "url": "https://www.code-huddle.com"
+  },
+  "keywords": [
+    "angular7",
+    "angular",
+    "angular service",
+    "angular tree shakable providers",
+    "unit test",
+    "unit test coverage",
+    "observables",
+    "rxjs",
+    "uuid",
+    "html elements",
+    "container sizing"
+  ],
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azmizar/Code-Huddle-Libraries.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azmizar/Code-Huddle-Libraries/issues"
+  },
+  "homepage": "https://www.code-huddle.com",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0",

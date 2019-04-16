@@ -6,6 +6,7 @@ import { TestBed } from '@angular/core/testing';
 /**
  * App imports
  */
+import { AngularBrowserUtilitiesModule } from './angular-browser-utilities.module';
 import { WindowService } from './window.service';
 
 /**
@@ -18,7 +19,9 @@ describe('WindowService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: []
+      imports: [
+        AngularBrowserUtilitiesModule
+      ]
     });
 
     elem1 = {

@@ -13,6 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 /**
  * App imports
  */
+import { AngularBrowserUtilitiesModule } from './angular-browser-utilities.module';
 import { ISize, IContentSize } from './browser-utilities.common';
 
 /**
@@ -34,7 +35,7 @@ function _getDocument(): Document {
  * @dynamic
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: AngularBrowserUtilitiesModule
 })
 export class WindowService {
   private _resizeObs: Observable<Event>;
