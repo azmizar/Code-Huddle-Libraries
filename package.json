@@ -1,7 +1,7 @@
 {
   "name": "@code-huddle/code-huddle-libraries",
   "description": "Collection of Angular libraries",
-  "version": "0.0.1-alpha",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
